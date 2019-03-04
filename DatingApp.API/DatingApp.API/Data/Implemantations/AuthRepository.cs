@@ -4,6 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor.Extensions;
+using Microsoft.CodeAnalysis.Operations;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Data.Implemantations
 {
@@ -15,16 +19,52 @@ namespace DatingApp.API.Data.Implemantations
         {
             _context = context;
         }
-        public Task<User> Login(string username, string password)
+        public async Task<User> Login(string username, string password)
         {
-            throw new NotImplementedException();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            if (user == null)
+            {
+                return null;
+            }
+
+            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            {
+                return null;
+            }
+
+            return user;
         }
 
-        public Task<User> Register(User user, string username, string password)
+        private bool VerifyPasswordHash(string password, byte[] userPasswordHash, byte[] userPasswordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(userPasswordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                for (int i = 0; i < computedHash.Length; i++)
+                {
+                    if (computedHash[i] != userPasswordHash[i])
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+        }
+
+        public async Task<User> RegisterAsync(User user, string password)
         {
             byte[] passwordHash, passwordSalt;
             CreatePassWordHash(password, out passwordHash, out passwordSalt);
 
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            return user;
         }
 
         private void CreatePassWordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
@@ -36,9 +76,14 @@ namespace DatingApp.API.Data.Implemantations
             }
         }
 
-        public Task<bool> UserExist(string username)
+        public async Task<bool> UserExist(string username)
         {
-            throw new NotImplementedException();
+            if (await _context.Users.AnyAsync(u => u.Username.Equals(username)))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
