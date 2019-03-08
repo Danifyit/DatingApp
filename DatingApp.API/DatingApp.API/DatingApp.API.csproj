@@ -5,6 +5,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190225063100_created userclass.cs" />
+    <Compile Remove="Migrations\20190225063100_created userclass.Designer.cs" />
+    <Compile Remove="Migrations\20190304092151_CreateUserTableWithMaxLength.cs" />
+    <Compile Remove="Migrations\20190304092151_CreateUserTableWithMaxLength.Designer.cs" />
+    <Compile Remove="Migrations\20190308143414_ExtendedUserClass.cs" />
+    <Compile Remove="Migrations\20190308143414_ExtendedUserClass.Designer.cs" />
+    <Compile Remove="Migrations\20190308144838_AddBack.cs" />
+    <Compile Remove="Migrations\20190308144838_AddBack.Designer.cs" />
+    <Compile Remove="Migrations\20190308144936_test.cs" />
+    <Compile Remove="Migrations\20190308144936_test.Designer.cs" />
+    <Compile Remove="Migrations\20190308145038_test.cs" />
+    <Compile Remove="Migrations\20190308145038_test.Designer.cs" />
+    <Compile Remove="Migrations\20190308154629_test.cs" />
+    <Compile Remove="Migrations\20190308154629_test.Designer.cs" />
+    <Compile Remove="Migrations\20190308154736_test.cs" />
+    <Compile Remove="Migrations\20190308154736_test.Designer.cs" />
+    <Compile Remove="Migrations\20190308154834_test.cs" />
+    <Compile Remove="Migrations\20190308154834_test.Designer.cs" />
+    <Compile Remove="Migrations\20190308155231_test.cs" />
+    <Compile Remove="Migrations\20190308155231_test.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
