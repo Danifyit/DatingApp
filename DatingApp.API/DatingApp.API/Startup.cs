@@ -90,6 +90,7 @@ namespace DatingApp.API
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseMvc();
+            app.UseStaticFiles();
             //app.Run(async (context) =>
             //{
             //    await context.Response.WriteAsync("Hello World! ");
