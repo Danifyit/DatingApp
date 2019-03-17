@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { fromEventPattern, from } from 'rxjs';
@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
@@ -49,12 +50,14 @@ export function tokenGetter(){
       MemberDetailComponent,
       MemberEditComponent,
       PhotoEditorComponent,
-      
+
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
+      ReactiveFormsModule,
+      BsDatepickerModule.forRoot(),
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
@@ -63,7 +66,7 @@ export function tokenGetter(){
       JwtModule.forRoot({
          config: {
             tokenGetter: tokenGetter,
-            whitelistedDomains: ['localhost:55927'], 
+            whitelistedDomains: ['localhost:55927'],
             blacklistedRoutes: ['localhost:55927/api/auth']//skickar inte med token hit
          }
       })
