@@ -15,7 +15,11 @@ photoUrl: string;
   constructor(public authservice: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
-    this.authservice.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
+    this.authservice.currentPhotoUrl.subscribe(photoUrl =>{
+      console.log('in nav subscribe');
+
+      this.photoUrl = photoUrl;
+    });
   }
 
   login() {

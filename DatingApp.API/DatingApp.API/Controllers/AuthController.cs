@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.API.Data.Interfaces;
 using DatingApp.API.Dtos;
+using DatingApp.API.Helpers;
 using DatingApp.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters.Internal;
@@ -52,7 +53,7 @@ namespace DatingApp.API.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            //throw new Exception("Test error accoured");
+            
             var userFromRepo = await _repo.Login(userForLoginDto.Username, userForLoginDto.Password);
 
             if (userFromRepo == null)
