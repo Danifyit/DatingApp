@@ -5,7 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { fromEventPattern, from } from 'rxjs';
-import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
@@ -53,6 +53,7 @@ export function tokenGetter(){
       PhotoEditorComponent,
       TimeAgoPipe,
 
+
    ],
    imports: [
       BrowserModule,
@@ -64,6 +65,8 @@ export function tokenGetter(){
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       NgxGalleryModule,
+      PaginationModule.forRoot(),
+      ButtonsModule.forRoot(),
       FileUploadModule,
       JwtModule.forRoot({
          config: {
