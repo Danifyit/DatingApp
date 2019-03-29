@@ -22,10 +22,27 @@ namespace DatingApp.API.Data
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
 
             base.OnModelCreating(modelBuilder);
-        }
 
+            //sätter PK till en kombination av dessa
+            modelBuilder.Entity<Like>()
+                .HasKey(like => new {like.LikerId, like.LikeeId});
+
+            modelBuilder.Entity<Like>()
+                .HasOne(like => like.Likee)
+                .WithMany(user => user.Likers)
+                .HasForeignKey(l => l.LikeeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Like>()
+                .HasOne(like => like.Liker)
+                .WithMany(user => user.Likees)
+                .HasForeignKey(l => l.LikerId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+        
         public DbSet<Value> Values { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Like> Likes { get; set; }
     }
 }
